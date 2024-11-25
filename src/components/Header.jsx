@@ -1,11 +1,12 @@
-import { Navbar, TextInput, Button } from 'flowbite-react';
-import { Link } from 'react-router-dom';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { FaMoon } from 'react-icons/fa';
+import { Navbar, Button } from 'flowbite-react';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Header() {
+  const location = useLocation(); // Получение текущего пути
+
   return (
     <Navbar className="border-b-2">
+      {/* Логотип */}
       <Navbar.Brand>
         <Link
           to="/"
@@ -17,25 +18,44 @@ export default function Header() {
           Booking System
         </Link>
       </Navbar.Brand>
-      <div className="flex items-center gap-2 md:order-2">
-        <TextInput
-          type="text"
-          placeholder="Search..."
-          className="hidden lg:block"
-        />
-        <Button className="hidden sm:inline w-12 h-10" color="gray" pill>
-          <FaMoon />
-        </Button>
-        <Link to="/sign-in">
-          <Button gradientDuoTone="purpleToBlue">Sign In</Button>
+
+      {/* Кнопки в правой части */}
+      <div className="ml-auto flex items-center gap-4">
+        <Link to="/">
+          <Button
+            size="sm"
+            color={location.pathname === "/" ? "purple" : "gray"}
+            outline={location.pathname !== "/"}
+            className="transition-none"
+          >
+            Home
+          </Button>
         </Link>
-        <Navbar.Toggle />
+        <Link to="/about">
+          <Button
+            size="sm"
+            color={location.pathname === "/about" ? "purple" : "gray"}
+            outline={location.pathname !== "/about"}
+            className="transition-none"
+          >
+            About
+          </Button>
+        </Link>
+        <Link to="/projects">
+          <Button
+            size="sm"
+            color={location.pathname === "/projects" ? "purple" : "gray"}
+            outline={location.pathname !== "/projects"}
+            className="transition-none"
+          >
+            Projects
+          </Button>
+        </Link>
       </div>
-      <Navbar.Collapse>
-        <Navbar.Link href="/">Home</Navbar.Link>
-        <Navbar.Link href="/about">About</Navbar.Link>
-        <Navbar.Link href="/projects">Projects</Navbar.Link>
-      </Navbar.Collapse>
     </Navbar>
   );
 }
+
+
+
+
